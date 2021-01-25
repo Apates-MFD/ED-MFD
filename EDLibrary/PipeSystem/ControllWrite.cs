@@ -28,11 +28,10 @@ namespace EDLibrary.PipeSystem
         /// 
         public override void Write(object data)
         {
-            if (!data.GetType().Equals(typeof(Actions))) throw new ArgumentException("Argument is not an Action");
-            Actions action = (Actions)data;
+            if (!data.GetType().Equals(typeof(string))) throw new ArgumentException("Argument needs to be a string");
 
             if (keybindings == null) keybindings = KeybindingParser.Parse(pathToKeybindins);
-            Keybinding binding = keybindings.Find(e => e.Action.Equals(action));
+            Keybinding binding = keybindings.Find(e => e.Action.Equals(data));
 
             if (binding == null) throw new Exception("Action not bound to key");
 

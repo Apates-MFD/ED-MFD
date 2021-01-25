@@ -219,7 +219,7 @@ namespace EDLibrary
         /// Redirects action to control handler
         /// </summary>
         /// <param name="action"></param>
-        public void ExecuteAction(Actions action)
+        public void ExecuteAction(string action)
         {
             controlHandler.Write(action);
         }
