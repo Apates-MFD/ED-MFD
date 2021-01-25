@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace EDLibrary.Output
 {
@@ -20,6 +21,7 @@ namespace EDLibrary.Output
             {
                 Keyboard.SendKey(strokes[i], false, Keyboard.InputType.Keyboard);
             }
+            Thread.Sleep(100);
             //Release
             for (int i = strokes.Length - 1; i >= 0; i--)
             {
