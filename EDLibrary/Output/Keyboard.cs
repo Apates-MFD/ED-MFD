@@ -14,14 +14,17 @@ namespace EDLibrary.Output
     /// </summary>
     public class Keyboard
     {
-        public static void exec(DirectXKeyStrokes[] strokes)
+        public static void press(DirectXKeyStrokes[] strokes)
         {
             //Press
             for (int i = 0; i < strokes.Length; i++)
             {
                 Keyboard.SendKey(strokes[i], false, Keyboard.InputType.Keyboard);
             }
-            Thread.Sleep(100);
+        }
+
+        public static void release(DirectXKeyStrokes[] strokes)
+        {
             //Release
             for (int i = strokes.Length - 1; i >= 0; i--)
             {

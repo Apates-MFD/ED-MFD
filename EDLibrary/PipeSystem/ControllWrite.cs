@@ -26,16 +26,25 @@ namespace EDLibrary.PipeSystem
         /// </summary>
         /// <param name="data"></param>
         /// 
-        public override void Write(object data)
+        public override void Write(object input)
         {
-            if (!data.GetType().Equals(typeof(string))) throw new ArgumentException("Argument needs to be a string");
+            object[] data = (object[])input;
+            if (!data[0].GetType().Equals(typeof(string))) throw new ArgumentException("Argument needs to be a string");
+            if (!data[1].GetType().Equals(typeof(bool))) throw new ArgumentException("Argument needs to be a bool");
 
             if (keybindings == null) keybindings = KeybindingParser.Parse(pathToKeybindins);
-            Keybinding binding = keybindings.Find(e => e.Action.Equals(data));
+            Keybinding binding = keybindings.Find(e => e.Action.Equals(data[0]));
 
             if (binding == null) throw new Exception("Action not bound to key");
 
-            Keyboard.exec(binding.KeyStrokes);
+            if ((bool)data[1])
+            {
+                Keyboard.press(binding.KeyStrokes);
+            }
+            else
+            {
+                Keyboard.release(binding.KeyStrokes);
+            }         
         }
     }
 }

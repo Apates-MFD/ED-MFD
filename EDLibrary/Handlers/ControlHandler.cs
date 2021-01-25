@@ -68,9 +68,12 @@ namespace EDLibrary.Handlers
         /// Write action to device
         /// </summary>
         /// <param name="actions"></param>
-        public void Write(string actions)
+        public void Write(string actions, bool state)
         {
-            if(writeEnabled) writePipe.Write(actions);
+            if (writeEnabled)
+            {
+                writePipe.Write(new object[] { actions, state });
+            }
         }
 
         /// <summary>

@@ -50,12 +50,18 @@ namespace EDLibrary
                 controlHandler.Acquire(dev, new EventHandler(delegate (object sender, EventArgs e)
                 {
                     InputEventArgs args = (InputEventArgs)e;
-                    if (args.Button.ButtonState == configurationHandler.GetTriggerState())
+                    InputDevice inputDevice = (InputDevice)sender;
+                    ActiveMenuInfo info = activeMenus.Find(e => e.AssignedInput.Equals(inputDevice.InputDeviceName));
+                    SerializableCommand command = info.Menu.ButtonClick(args.Button.ButtonNum);
+                    Command comm = Factory.GetCommand(command, inputDevice.InputDeviceName);
+                    if (comm.GetType().Equals(typeof(InGameCommand)))
                     {
-                        InputDevice inputDevice = (InputDevice)sender;
-                        ActiveMenuInfo info = activeMenus.Find(e => e.AssignedInput.Equals(inputDevice.InputDeviceName));
-                        SerializableCommand command = info.Menu.ButtonClick(args.Button.ButtonNum);
-                        executeCommand(Factory.GetCommand(command, inputDevice.InputDeviceName));                       
+                        ((InGameCommand)comm).PressState = args.Button.ButtonState;
+                        executeCommand(comm);
+                    }
+                    else
+                    {
+                        if (args.Button.ButtonState == configurationHandler.GetTriggerState()) executeCommand(comm);
                     }
                 }));
                 EnableMenu(configurationHandler.GetMainMenu(), dev);
@@ -219,9 +225,10 @@ namespace EDLibrary
         /// Redirects action to control handler
         /// </summary>
         /// <param name="action"></param>
-        public void ExecuteAction(string action)
+        public void ExecuteAction(string action, bool state)
         {
-            controlHandler.Write(action);
+
+            controlHandler.Write(action, state);
         }
 
         /// <summary>
