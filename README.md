@@ -5,3 +5,5 @@ Reads Input from Thrustmaster MFD joystick.
 Creates Custom Menus where those data can get linked (or not).
 Creates Commands which can get triggeret via joystick.
 Can interact with directx games.
+
+Go trough the Configuration Files in MFDLauncher to understand how to create custom menus.
