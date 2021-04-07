@@ -38,7 +38,7 @@ namespace EDLibrary.CommandFactory
                 case commandTypes.IN_GAME:
                     command = new InGameCommand()
                     {
-                        Action = Enum.Parse<Actions>(serialized.ParameterValues[0])
+                        Action = serialized.ParameterValues[0]
                     };
 
                     break;

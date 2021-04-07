@@ -8,7 +8,7 @@ namespace EDLibrary.Output
     /// </summary>
     public class Keybinding
     {
-        public Actions Action { get; set; }
+        public string Action { get; set; }
         public DirectXKeyStrokes[] KeyStrokes { get; set; }
     }
 }
